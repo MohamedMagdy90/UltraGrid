@@ -1,9 +1,7 @@
 #!/bin/bash
-
 PASSWORD=""
 FILENAME=""
 CONFIG=""
-
 # Argument parsing
 while getopts ":p:f:c:" opt; do
   case $opt in
@@ -26,25 +24,21 @@ while getopts ":p:f:c:" opt; do
       ;;
   esac
 done
-
-# Check if bin/hummingbot_quickstart.py exists
-if [[ ! -f bin/hummingbot_quickstart.py ]]; then
-    echo "Error: bin/hummingbot_quickstart.py command not found. Make sure you are in the Hummingbot root directory"
+# Check if bin/ultraboost_quickstart.py exists
+if [[ ! -f bin/ultraboost_quickstart.py ]]; then
+    echo "Error: bin/ultraboost_quickstart.py command not found. Make sure you are in the UltraBoost root directory"
     exit 1
 fi
-
-# Check if the hummingbot conda environment is activated
-if [[ $CONDA_DEFAULT_ENV != "hummingbot" ]]; then
-    echo "Error: 'hummingbot' conda environment is not activated. Please activate it and try again."
+# Check if the ultraboost conda environment is activated
+if [[ $CONDA_DEFAULT_ENV != "ultraboost" ]]; then
+    echo "Error: 'ultraboost' conda environment is not activated. Please activate it and try again."
     exit 1
 fi
-
 # Build the command to run
-CMD="./bin/hummingbot_quickstart.py"
+CMD="./bin/ultraboost_quickstart.py"
 if [[ ! -z "$PASSWORD" ]]; then
     CMD="$CMD -p \"$PASSWORD\""
 fi
-
 # Check for valid file extensions
 if [[ ! -z "$FILENAME" ]]; then
     if [[ $FILENAME == *.yml || $FILENAME == *.py ]]; then
@@ -54,7 +48,6 @@ if [[ ! -z "$FILENAME" ]]; then
         exit 4
     fi
 fi
-
 if [[ ! -z "$CONFIG" ]]; then
     if [[ $CONFIG == *.yml ]]; then
         CMD="$CMD -c \"$CONFIG\""
@@ -63,6 +56,5 @@ if [[ ! -z "$CONFIG" ]]; then
         exit 3
     fi
 fi
-
 # Execute the command
 eval $CMD
